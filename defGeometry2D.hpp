@@ -867,10 +867,12 @@ namespace def
 
 		auto dist = c1.pos.dist(c2.pos);
 		auto adj = (sqr_r1 - sqr_r2 + dist * dist) / (2 * dist);
-		auto hyp = sqrt(sqr_r1 - adj * adj);
+		auto sqr_hyp = sqr_r1 - adj * adj;
 
-		if (isnan(hyp))
+		if (sqr_hyp < 0)
 			return {};
+
+		auto hyp = sqrt(sqr_hyp);
 
 		vec2d<T2> p = (c2.pos - c1.pos) * (adj / dist) + c1.pos;
 		vec2d<T2> inter1, inter2;
